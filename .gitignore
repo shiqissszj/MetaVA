@@ -1,2 +1,4 @@
 trained_models/
 *.DS_Store
+__pycache__/
+.idea/
