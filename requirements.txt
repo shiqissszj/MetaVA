@@ -1,0 +1,15 @@
+# Core runtime
+torch>=2.0.0
+numpy>=1.22
+scikit-learn>=1.1
+scipy>=1.8
+tqdm>=4.64
+wfdb>=4.1
+matplotlib>=3.5
+
+# Optional utilities (uncomment if needed)
+# torchsummary>=1.5   # only used in tran_models.py __main__
+# pytest>=7.0         # for tests
+# black>=23.0         # code formatting
+# isort>=5.10         # import sorting
+# flake8>=6.0         # linting
