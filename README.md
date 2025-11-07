@@ -53,7 +53,7 @@ Fine-tune: `python finetune.py`
 
 ## 📚 Reference
 
-If you use this code or ideas, please cite:
+**If you use this code or ideas, please cite:**
  Sun Z, Zhang W, Zhou Y, Geng S, Zhang D, Wang J, et al. (2025)
  *A lightweight deep neural network for personalized detecting ventricular arrhythmias from a single-lead ECG device.*
  **PLOS Digital Health** 4(10): e0001037. https://doi.org/10.1371/journal.pdig.0001037
