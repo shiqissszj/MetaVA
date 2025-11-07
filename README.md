@@ -1,17 +1,36 @@
 # MetaVA
 
-A Lightweight Deep Neural Network for Personalized Detecting Ventricular Arrhythmias from a Single-Lead ECG Device
+## 📄 Paper Overview
 
-## Project Structure & Module Organization
-- `pre_train.py`: Pre-training entry point and training loop configuration.
-- `finetune.py`: Fine-tuning on downstream tasks using saved checkpoints.
-- `MAML.py`: Meta-learning (MAML) training routine and evaluation utilities.
-- `dataprocess.py`, `prepocessing.py`: Data cleaning, transforms, and dataset preparation.
-- `tran_models.py`: Model architectures and wrappers used across scripts.
-- `args.py`: Centralized CLI argument definitions and defaults.
-- `util.py`: Shared helpers (logging, seeding, misc utilities).
+This repository accompanies the paper **“A Lightweight Deep Neural Network for Personalized Detecting Ventricular Arrhythmias from a Single-Lead ECG Device”** (PLOS Digital Health, 2025). The work targets two core challenges in ECG-based VA detection: **inter-subject diversity** (differences across people) and **intra-subject diversity** (temporal changes within the same person). We introduce **MetaVA**, a lightweight, on-device-friendly pipeline that adapts to a new individual with only a handful of labeled beats.
 
-## Getting Started
+### 🔧 Repo at a glance
+- `pre_train.py` — meta-pretraining entrypoint  
+- `finetune.py` — per-subject adaptation / evaluation  
+- `MAML.py` — core MAML training utilities  
+- `dataprocess.py`, `preprocessing.py` — data I/O & transforms  
+- `tran_models.py` — model backbones (lightweight CNN–Transformer)  
+- `args.py`, `util.py` — CLI + helpers  
+
+## 🚀 Method: MetaVA in Two Stages
+
+**Stage 1 — Meta-Pretraining (MAML + Curriculum Selector)**  
+Treat each **subject as a meta-task**. We learn a **subject-agnostic initialization** with **MAML**, while a **curriculum selector (CL-selector)** schedules tasks from easy→hard to stabilize meta-optimization across heterogeneous patients. Output is the meta-weights**θ₀** .
+
+**Stage 2 — Personalized Fine-tuning (Pre-fine-tune → Fine-tune)**  
+Before standard fine-tuning on a new user, we insert a lightweight **MAML-inspired pre-fine-tuning** step that uses a “future” loss on the user’s small support set to bridge meta-training and direct adaptation—then run normal fine-tuning to specialize the model. This reduces drift due to **intra-subject** variability. 
+
+---
+
+## 📊 Key Results & Efficiency
+
+- **Few-shot accuracy (K=10 beats/class)** on public test set: **ROC-AUC 0.984**, **F1 0.940**;  
+  **Real-world HeartVoice cohort**: **ROC-AUC 0.965**, **F1 0.937**. 
+- **Lightweight model**: **~0.596M params (~2.21MB FP32)**, **~17.4 MFLOPs** per 2s window, **~0.4–0.7 ms** single-thread CPU latency (batch=1, eval). Ideal for embedded/wearables. 
+
+**Datasets** used include **MIT-BIH Arrhythmia (MITDB)**, **VFDB**, **CUDB**, and a **single-lead clinical HeartVoice VT cohort** .
+
+## 🖇️ Getting Started
 
 ### Environment Set Up
 
