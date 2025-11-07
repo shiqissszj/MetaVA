@@ -14,6 +14,8 @@ This repository accompanies the paper **“A Lightweight Deep Neural Network for
 
 ## 🚀 Method: MetaVA in Two Stages
 
+![Screenshot 2025-11-07 at 11.07.55](/Users/shiqissszj/Desktop/Screenshot 2025-11-07 at 11.07.55.png)
+
 **Stage 1 — Meta-Pretraining (MAML + Curriculum Selector)**  
 Treat each **subject as a meta-task**. We learn a **subject-agnostic initialization** with **MAML**, while a **curriculum selector (CL-selector)** schedules tasks from easy→hard to stabilize meta-optimization across heterogeneous patients. Output is the meta-weights**θ₀** .
 
